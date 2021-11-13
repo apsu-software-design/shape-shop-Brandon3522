@@ -1,13 +1,18 @@
 "use strict";
 //User Interface for The Shopping Cart 
 //@author James Church
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.start = void 0;
 var readlineSync = require("readline-sync"); //for easier repeated prompts
+var priceView_1 = require("./priceView");
+var productListView_1 = require("./productListView");
+var productModel_1 = require("./productModel");
 var products_1 = require("./products");
-// Hey look. It's a global variable. This is totally cool, right?
-var shopping_cart = [];
-var quantity_cart = [];
+var removeProductView_1 = require("./removeProductView");
+var model = new productModel_1.ProductModel();
+var price_view = new priceView_1.PriceView(model);
+var product_list_view = new productListView_1.ProductListView(model);
+var remove_product_view = new removeProductView_1.RemoveProductView(model);
 /**
  * Function to run the UI
  */
@@ -52,13 +57,13 @@ function letUserSelectItem() {
     var response = readlineSync.question('> ');
     switch (response) { //handle each response
         case '1':
-            shopping_cart.push(new products_1.Product("Triangle", 3.5, "It's got three sides!"));
+            model.addProduct(new products_1.Product("Triangle", 3.5, "It's got three sides!"));
             break;
         case '2':
-            shopping_cart.push(new products_1.Product("Square", 4.5, "It's got four sides!"));
+            model.addProduct(new products_1.Product("Square", 4.5, "It's got four sides!"));
             break;
         case '3':
-            shopping_cart.push(new products_1.Product("Pentagon", 5.5, "It's got five sides!"));
+            model.addProduct(new products_1.Product("Pentagon", 5.5, "It's got five sides!"));
             break;
         default: console.log('Invalid option!');
     }
@@ -66,35 +71,28 @@ function letUserSelectItem() {
 }
 function letUserSelectQuantity() {
     console.log("How many of this shape would you like to purchase?\n  ");
+    var quanity = model.getQuanity();
     var response = readlineSync.question('> ');
-    quantity_cart.push(parseInt(response));
+    quanity.push(parseInt(response));
     console.log(''); //extra empty line for revisiting
 }
 function removeItemFromCart() {
     console.log("Select an item to be removed from the cart.\n  ");
-    for (var i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log(i + ": " + shopping_cart[i].getName());
+    var cart = model.getShoppingCart();
+    for (var i = 0; i < cart.length; i++) {
+        console.log(remove_product_view.getView(i));
     }
     var response = readlineSync.question('> ');
     var toRemove = parseInt(response);
-    shopping_cart.splice(toRemove, 1);
-    quantity_cart.splice(toRemove, 1);
+    model.removeProduct(toRemove);
     console.log(''); //extra empty line for revisiting
 }
 function viewItemsInCart() {
-    for (var i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log("       Name: " + shopping_cart[i].getName());
-        console.log("      Price: " + shopping_cart[i].getPrice());
-        console.log("Description: " + shopping_cart[i].getDescription());
-        console.log("   Quantity: " + quantity_cart[i]);
+    var cart = model.getShoppingCart();
+    for (var i = 0; i < cart.length; i++) {
+        console.log(product_list_view.getView(i));
     }
 }
 function viewCartTotal() {
-    var total = 0;
-    for (var i = 0; i < shopping_cart.length; i++) {
-        total += shopping_cart[i].getPrice() * quantity_cart[i];
-    }
-    console.log("Shopping Cart Total: " + total);
+    console.log(price_view.getView());
 }

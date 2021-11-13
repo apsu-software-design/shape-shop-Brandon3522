@@ -12,4 +12,5 @@ export class Product {
     public getName(): string { return this.name; }
     public getPrice(): number { return this.price; }
     public getDescription(): string { return this.description; }
+
 }
