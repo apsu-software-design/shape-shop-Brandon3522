@@ -12,4 +12,10 @@ export class Product {
     public getName(): string { return this.name; }
     public getPrice(): number { return this.price; }
     public getDescription(): string { return this.description; }
+
+    // public toString(){
+    //     return "Name: " + this.name + "\n" + "Price: " + this.price + "\n"
+    //         + "Description: " + this.description + "\n";
+
+    // }
 }

@@ -2,9 +2,17 @@
 //@author James Church
 
 import readlineSync = require('readline-sync'); //for easier repeated prompts
+import { PriceView } from './priceView';
+import { ProductListView } from './productListView';
+import { ProductModel } from './productModel';
 import {Product} from './products';
+import { RemoveProductView } from './removeProductView';
 
 // Hey look. It's a global variable. This is totally cool, right?
+let model = new ProductModel();
+let price_view = new PriceView(model);
+let product_list_view = new ProductListView(model);
+let remove_product_view = new RemoveProductView(model);
 let shopping_cart: Product[] = [];
 let quantity_cart: number[] = [];
 
@@ -48,6 +56,7 @@ function addItemToCart() {
     letUserSelectQuantity();
 }
 
+// model?
 function letUserSelectItem() {
     console.log(`Here you can select your shape. Pick an option:
   1. Buy a Triangle!
@@ -58,54 +67,66 @@ function letUserSelectItem() {
     let response = readlineSync.question('> ')
 
     switch(response) { //handle each response
-      case '1': shopping_cart.push(new Product("Triangle", 3.5, "It's got three sides!")); break;
-      case '2': shopping_cart.push(new Product("Square", 4.5, "It's got four sides!")); break;
-      case '3': shopping_cart.push(new Product("Pentagon", 5.5, "It's got five sides!")); break;
+      case '1': model.addProduct(new Product("Triangle", 3.5, "It's got three sides!")); break;
+      case '2': model.addProduct(new Product("Square", 4.5, "It's got four sides!")); break;
+      case '3': model.addProduct(new Product("Pentagon", 5.5, "It's got five sides!")); break;
       default: console.log('Invalid option!');
     }
     console.log(''); //extra empty line for revisiting
 }
 
+// model?
 function letUserSelectQuantity() {
     console.log(`How many of this shape would you like to purchase?
   `);
-
+    let quanity = model.getQuanity();
     let response = readlineSync.question('> ')
-    quantity_cart.push(parseInt(response));
+    //quantity_cart.push(parseInt(response));
+    quanity.push(parseInt(response));
     console.log(''); //extra empty line for revisiting
 }
 
+// model and remove product view
 function removeItemFromCart() {
     console.log(`Select an item to be removed from the cart.
   `);
 
-    for (let i = 0; i < shopping_cart.length; i++) {
-        console.log(i+": "+shopping_cart[i].getName());
-    }
+    // for (let i = 0; i < shopping_cart.length; i++) {
+    //     console.log(i+": "+shopping_cart[i].getName());
+    // }
+    console.log(remove_product_view.getView());
+
+
 
     let response = readlineSync.question('> ')
     let toRemove = parseInt(response);
 
-    shopping_cart.splice(toRemove, 1);
-    quantity_cart.splice(toRemove, 1);
+    model.removeProduct(toRemove);
+
+    // shopping_cart.splice(toRemove, 1);
+    // quantity_cart.splice(toRemove, 1);
 
     console.log(''); //extra empty line for revisiting
 }
 
+// product list view
 function viewItemsInCart() {
-    for (let i = 0; i < shopping_cart.length; i++) {
-        console.log("");
-        console.log("       Name: "+shopping_cart[i].getName());
-        console.log("      Price: "+shopping_cart[i].getPrice());
-        console.log("Description: "+shopping_cart[i].getDescription());
-        console.log("   Quantity: "+quantity_cart[i]);
-    }
+    // for (let i = 0; i < shopping_cart.length; i++) {
+    //     console.log("");
+    //     console.log("       Name: "+shopping_cart[i].getName());
+    //     console.log("      Price: "+shopping_cart[i].getPrice());
+    //     console.log("Description: "+shopping_cart[i].getDescription());
+    //     console.log("   Quantity: "+quantity_cart[i]);
+    // }
+    console.log(product_list_view.getView());
 }
 
+// price view
 function viewCartTotal() {
-    let total: number = 0;
-    for (let i = 0; i < shopping_cart.length; i++) {
-        total += shopping_cart[i].getPrice() * quantity_cart[i];
-    }
-    console.log("Shopping Cart Total: "+total);
+    // let total: number = 0;
+    // for (let i = 0; i < shopping_cart.length; i++) {
+    //     total += shopping_cart[i].getPrice() * quantity_cart[i];
+    // }
+    // console.log("Shopping Cart Total: "+total);
+    console.log(price_view.getView());
 }
