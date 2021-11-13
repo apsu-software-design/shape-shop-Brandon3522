@@ -5,13 +5,11 @@ var RemoveProductView = /** @class */ (function () {
     function RemoveProductView(model) {
         this.model = model;
     }
-    RemoveProductView.prototype.getView = function () {
+    RemoveProductView.prototype.getView = function (index) {
         var cart = this.model.getShoppingCart();
         var quanity = this.model.getQuanity();
         var view = "";
-        for (var i = 0; i < cart.length; i++) {
-            view = i + ": " + cart[i].getName();
-        }
+        view = index + ": " + cart[index].getName();
         return view;
     };
     return RemoveProductView;

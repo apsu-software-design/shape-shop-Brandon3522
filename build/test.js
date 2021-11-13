@@ -12,14 +12,18 @@ model.addProduct(new products_1.Product("Square", 4.5, "It's got four sides!"));
 var quanity = model.getQuanity();
 quanity[0] = 2;
 quanity[1] = 1;
-console.log(product_list_view.getView());
-var product_list = product_list_view.getView();
+console.log('loop');
+for (var i = 0; i < model.getShoppingCart().length; i++) {
+    console.log(product_list_view.getView(i));
+}
 console.log("");
 var price_view = new priceView_1.PriceView(model);
 console.log(price_view.getView());
 console.log("");
 var remove_product_view = new removeProductView_1.RemoveProductView(model);
-console.log(remove_product_view.getView());
+for (var i = 0; i < model.getShoppingCart().length; i++) {
+    console.log(remove_product_view.getView(i));
+}
 console.log("");
 // model.removeProduct(0);
 // console.log(product_list_view.getView());

@@ -14,9 +14,11 @@ let quanity = model.getQuanity();
 quanity[0] = 2;
 quanity[1] = 1;
 
-console.log(product_list_view.getView());
-
-let product_list = product_list_view.getView();
+console.log('loop');
+for (let i = 0; i < model.getShoppingCart().length; i++) {
+    console.log(product_list_view.getView(i));
+    
+}
 
 console.log("");
 
@@ -28,7 +30,12 @@ console.log("");
 
 let remove_product_view = new RemoveProductView(model);
 
-console.log(remove_product_view.getView());
+
+for (let i = 0; i < model.getShoppingCart().length; i++) {
+    console.log(remove_product_view.getView(i));
+    
+}
+
 
 console.log("");
 

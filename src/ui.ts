@@ -53,7 +53,6 @@ function addItemToCart() {
     letUserSelectQuantity();
 }
 
-// model?
 function letUserSelectItem() {
     console.log(`Here you can select your shape. Pick an option:
   1. Buy a Triangle!
@@ -72,7 +71,6 @@ function letUserSelectItem() {
     console.log(''); //extra empty line for revisiting
 }
 
-// model?
 function letUserSelectQuantity() {
     console.log(`How many of this shape would you like to purchase?
   `);
@@ -83,13 +81,14 @@ function letUserSelectQuantity() {
     console.log(''); //extra empty line for revisiting
 }
 
-// model and remove product view
 function removeItemFromCart() {
     console.log(`Select an item to be removed from the cart.
   `);
 
-    console.log(remove_product_view.getView());
-
+  let cart = model.getShoppingCart();
+  for (let i = 0; i < cart.length; i++) {
+    console.log(remove_product_view.getView(i));
+  }
     let response = readlineSync.question('> ')
     let toRemove = parseInt(response);
 
@@ -98,7 +97,10 @@ function removeItemFromCart() {
 }
 
 function viewItemsInCart() {
-    console.log(product_list_view.getView());
+    let cart = model.getShoppingCart();
+    for (let i = 0; i < cart.length; i++) {
+      console.log(product_list_view.getView(i));
+    }
 }
 
 function viewCartTotal() {

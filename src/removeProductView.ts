@@ -7,13 +7,11 @@ export class RemoveProductView{
         this.model = model;
     }
 
-    public getView(): string{
+    public getView(index: number): string{
         let cart = this.model.getShoppingCart();
         let quanity = this.model.getQuanity();
         let view = "";
-        for (let i = 0; i < cart.length; i++) {
-            view = i + ": " + cart[i].getName();            
-        }
+        view = index + ": " + cart[index].getName();
 
         return view;
     }

@@ -7,17 +7,15 @@ export class ProductListView{
         this.model = model;
     }
 
-    public getView(): string {
+    public getView(index: number): string {
         let cart = this.model.getShoppingCart();
         let quanity = this.model.getQuanity();
         let view = "";
-        for (var i = 0; i < cart.length; i++){ // loop through cart, format information into string
-            view = "" + 
-            "       Name: " + cart[i].getName()
-            + "\n" + "      Price: "+ cart[i].getPrice()
-            + "\n" + "Description: "+ cart[i].getDescription()
-            + "\n" + "   Quantity: "+ quanity[i];
-        }
+        view = "" + 
+            "       Name: " + cart[index].getName()
+            + "\n" + "      Price: "+ cart[index].getPrice()
+            + "\n" + "Description: "+ cart[index].getDescription()
+            + "\n" + "   Quantity: "+ quanity[index] + "\n";
 
         return view;
     }
