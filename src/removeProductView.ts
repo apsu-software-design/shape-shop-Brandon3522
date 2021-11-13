@@ -17,10 +17,4 @@ export class RemoveProductView{
 
         return view;
     }
-
-
-
-
-
-    
 }

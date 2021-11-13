@@ -8,7 +8,6 @@ export class ProductModel{
     constructor(){
         this.shopping_cart = [];
         this.quanity = [];
-
     }
 
     public getShoppingCart(): Product[]{

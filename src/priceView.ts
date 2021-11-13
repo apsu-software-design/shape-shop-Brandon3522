@@ -1,7 +1,5 @@
 import { ProductModel } from "./productModel";
 
-
-
 export class PriceView{
     private model: ProductModel;
 
@@ -19,11 +17,4 @@ export class PriceView{
 
         return "Shopping cart total: " + total.toString();
     }
-
-
-
-
-
-
-    
 }
